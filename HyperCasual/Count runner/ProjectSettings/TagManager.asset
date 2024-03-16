@@ -10,6 +10,9 @@ TagManager:
   - Spawner
   - GameOverPanel
   - PausePanel
+  - Slide
+  - Wall
+  - Platform
   layers:
   - Default
   - TransparentFX

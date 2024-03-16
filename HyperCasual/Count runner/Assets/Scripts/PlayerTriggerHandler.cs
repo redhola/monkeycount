@@ -2,15 +2,15 @@ using UnityEngine;
 using UnityEngine.AI; // Required for manipulating NavMeshAgent
 
 
+
 public class PlayerTriggerHandler : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("RoadFollower"))
         {
-            // Implement logic for the follower to start following the player
+            // Mevcut mantığı koruyoruz
             NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
-            // GameManager.Instance.GainFollower(1);
             if (agent != null && !agent.enabled)
             {
                 agent.enabled = true; 
@@ -20,7 +20,14 @@ public class PlayerTriggerHandler : MonoBehaviour
         }
         if (other.CompareTag("Obstacle"))
         {
-            GameManager.Instance.LoseFollower(5);
+            // Sahnedeki tüm follower'ları bul
+            GameObject[] allFollowers = GameObject.FindGameObjectsWithTag("SpawnFollower");
+            if (allFollowers.Length > 0)
+            {
+                int randomIndex = Random.Range(0, allFollowers.Length);
+                Destroy(allFollowers[randomIndex]);              
+            }
+            GameManager.Instance.LoseFollower(1);
         }
     }
 }
